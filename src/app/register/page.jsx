@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import { FaUser } from "react-icons/fa";
 import * as Yup from "yup";
@@ -33,9 +33,11 @@ const validationSchema = Yup.object({
 function Register() {
   const route = useRouter();
 
-  if (localStorage.getItem("accessToken")) {
-    route.push("/dashboard");
-  }
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      route.push("/dashboard");
+    }
+  }, []);
   const OnSubmit = async (values) => {
     console.log(values.password);
 
