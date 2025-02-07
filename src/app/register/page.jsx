@@ -34,10 +34,11 @@ function Register() {
   const route = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (typeof window !== "undefined" && localStorage.getItem("accessToken")) {
       route.push("/dashboard");
     }
   }, []);
+
   const OnSubmit = async (values) => {
     console.log(values.password);
 
@@ -54,7 +55,9 @@ function Register() {
         );
         //console.log(res);
         if (res.status === 200) {
-          localStorage.setItem("accessToken", res.data.token);
+          if (typeof window !== "undefined") {
+            localStorage.setItem("accessToken", res.data.token);
+          }
 
           route.push("/dashboard");
           toast.success("Success");

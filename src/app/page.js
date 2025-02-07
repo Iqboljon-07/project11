@@ -7,7 +7,7 @@ function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (typeof window !== "undefined" && localStorage.getItem("accessToken")) {
       router.push("/dashboard");
     }
   }, []);
