@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { FaUser } from "react-icons/fa";
 import * as Yup from "yup";
@@ -32,6 +32,18 @@ const validationSchema = Yup.object({
 
 function Register() {
   const route = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      route.push("/dashboard");
+    }
+  }, [isClient]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("accessToken")) {
@@ -55,7 +67,7 @@ function Register() {
         );
         //console.log(res);
         if (res.status === 200) {
-          if (typeof window !== "undefined") {
+          if (isClient) {
             localStorage.setItem("accessToken", res.data.token);
           }
 

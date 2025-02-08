@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import "./style.css";
 import { useRouter } from "next/navigation";
 function Main() {

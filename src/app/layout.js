@@ -24,11 +24,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
         <ToastContainer
           position="top-right"
-          autoClose={5000}
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick={false}
@@ -38,6 +36,8 @@ export default function RootLayout({ children }) {
           pauseOnHover
           theme="light"
         />
+        <Navbar />
+        {children}
       </body>
     </html>
   );

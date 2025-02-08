@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { FaUser } from "react-icons/fa";
 import * as Yup from "yup";
@@ -18,43 +18,43 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .min(4, "Kamida 4 harf qatnashsin")
     .max(16, "Ko'pi bilan 16ta harf qatnashsin")
-    // .matches(/^(?=.*[A-Za-z])/, "Parol kamida bitta Harf qatnashsin")
     .required("Maydon bo'sh bo'lmasin"),
 });
 
 function Login() {
-  const route = useRouter();
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("accessToken")) {
-      route.push("/dashboard");
-    }
+    setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (isClient) {
+      const token = localStorage.getItem("accessToken");
+      if (token) {
+        router.push("/dashboard");
+      }
+    }
+  }, [isClient]);
+
   const OnSubmit = async (values) => {
-    console.log(values.password);
-
     try {
-      let res = await axios.post(
-        `${baseUrl}/auth`,
+      let res = await axios.post(`${baseUrl}/auth`, {
+        email: values.email,
+        password: values.password,
+      });
 
-        {
-          email: values.email,
-          password: values.password,
-        }
-      );
-      console.log(res);
       if (res.status === 200) {
-        if (typeof window !== "undefined") {
+        if (isClient) {
           localStorage.setItem("accessToken", res.data.token);
         }
-
-        route.push("/dashboard");
-        toast.success("Success");
+        router.push("/dashboard");
+        toast.success("Muvaffaqiyatli tizimga kirdingiz!");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Error");
+      toast.error("Login yoki parol noto'g'ri!");
     }
   };
 
