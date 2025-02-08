@@ -9,6 +9,7 @@ main {
     background-image: url("../../images/programming.jpg");
 
     opacity: .40;
+    background-repeat: inherit;
 }
 
 .main_item {
