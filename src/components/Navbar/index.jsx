@@ -10,20 +10,19 @@ function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Tokenni `null` qilib boshlaymiz
-  // const [token, setToken] = useState(null);
-  // const [isClient, setIsClient] = useState(false); // Brauzerda ekanligimizni tekshiramiz
+  const [token, setToken] = useState(null);
+  const [isClient, setIsClient] = useState(false); // Brauzerda ekanligimizni tekshiramiz
 
-  // useEffect(() => {
-  //   setIsClient(true); // Faqat brauzerda ishlashi uchun
-  // }, []);
+  useEffect(() => {
+    setIsClient(true); // Faqat brauzerda ishlashi uchun
+  }, []);
 
-  // useEffect(() => {
-  //   if (isClient) {
-  //     const storedToken = localStorage.getItem("accessToken");
-  //     setToken(storedToken);
-  //   }
-  // }, [isClient]);
+  useEffect(() => {
+    if (isClient) {
+      const storedToken = localStorage.getItem("accessToken");
+      setToken(storedToken);
+    }
+  }, [isClient]);
 
   const handleLogout = () => {
     if (typeof window !== "undefined") {
@@ -33,7 +32,7 @@ function Navbar() {
       toast.success("Tark etdingiz");
     }
   };
-  const token = localStorage.getItem("accessToken");
+  //const token = localStorage.getItem("accessToken");
 
   return (
     <div className="wrapper flex items-center justify-between py-5 px-10 font-bold">
