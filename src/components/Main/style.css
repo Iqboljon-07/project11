@@ -6,7 +6,7 @@ main {
 
     /* background-image: url("https://i.pinimg.com/736x/45/b8/1f/45b81fd17ea2bf366cc9f0260e2120a8.jpg"); */
 
-    background-image: url("/programming.jpg");
+    background-image: url("../../images/programming.jpg");
 
     opacity: .40;
 }
