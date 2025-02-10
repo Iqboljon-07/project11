@@ -10,7 +10,7 @@ function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState("");
   const [isClient, setIsClient] = useState(false); // Brauzerda ekanligimizni tekshiramiz
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function Navbar() {
   const handleLogout = () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("accessToken");
-      //setToken(null);
+      setToken(null);
       router.push("/login");
       toast.success("Tark etdingiz");
     }
@@ -56,7 +56,7 @@ function Navbar() {
           Developers
         </Link>
 
-        {token ? ( // Token mavjud bo‘lsa, login qilingan foydalanuvchi uchun navigatsiya
+        {token ? (
           <div className="flex gap-10">
             <Link
               className={`wrapper_item ${
@@ -80,7 +80,6 @@ function Navbar() {
             </button>
           </div>
         ) : (
-          // Token yo‘q bo‘lsa, login qilish va ro‘yxatdan o‘tish opsiyalari ko‘rsatiladi
           <div className="flex gap-10">
             <Link
               className={`wrapper_item ${

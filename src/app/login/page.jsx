@@ -51,6 +51,7 @@ function Login() {
         }
         router.push("/dashboard");
         toast.success("Muvaffaqiyatli tizimga kirdingiz!");
+        location.reload();
       }
     } catch (error) {
       console.error(error);
